@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Todo } from 'src/app/types/todo';
@@ -16,7 +16,7 @@ const todos = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   todos = todos;
 
   todoForm = new FormGroup({
@@ -38,6 +38,16 @@ export class AppComponent {
     console.log('calculating todo');
     return this.todos.filter(todo => !todo.completed);
   }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.todos[1] = {...this.todos[1], title:'qwerty'}
+    }, 3000);
+  }
+
+  trackById(i: number, todo: Todo) {
+    return todo.id;
+  }
+
 
   addTodo() {
     if (this.todoForm.invalid) {
