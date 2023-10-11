@@ -26,6 +26,8 @@
       [todo]="todo"
       (delete) = "todos.splice(i, 1)"
       (rename) = "renameTodo(todo.id, $event)"
+      (toggle) = "toggleTodo(todo.id)"
+
      ></app-todo>
 
     </section>

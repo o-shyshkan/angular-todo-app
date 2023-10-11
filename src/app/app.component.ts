@@ -70,4 +70,10 @@ export class AppComponent {
     return todo.id !== todoId ? todo : {...todo, title:title}
     })
   }
+
+  toggleTodo(todoId: number) {
+    this.todos = this.todos.map(todo => {
+    return todo.id !== todoId ? todo : {...todo, completed:!todo.completed}
+    })
+  }
 }
