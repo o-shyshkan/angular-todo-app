@@ -9,6 +9,7 @@ import { Todo } from 'src/app/types/todo';
 })
 export class TodoComponent implements OnChanges {
   @Output() delete = new EventEmitter();
+  @Output() rename = new EventEmitter<string>();
 
   @Input() todo!: Todo;
 
@@ -39,7 +40,7 @@ export class TodoComponent implements OnChanges {
       return;
     }
     this.editing = false;
-    this.todo.title = this.title;
+    this.rename.emit(this.title);
   }
 
 }

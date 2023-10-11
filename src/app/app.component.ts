@@ -45,18 +45,29 @@ export class AppComponent {
   }
 
 
-  addTodo() {
+  handleFormSubmit() {
     if (this.todoForm.invalid) {
       return;
     }
 
+    this.addTodo(this.title.value)
+
+    this.todoForm.reset();
+  }
+
+  addTodo(newTitle: string) {
     const newTodo: Todo = {
       id: Date.now(),
-      title: this.title.value,
+      title: newTitle,
       completed: false
     };
 
-    this.todos.push(newTodo);
-    this.todoForm.reset();
+    this.todos = [...this.todos, newTodo];
+  }
+
+  renameTodo(todoId: number, title: string) {
+    this.todos = this.todos.map(todo => {
+    return todo.id !== todoId ? todo : {...todo, title:title}
+    })
   }
 }
