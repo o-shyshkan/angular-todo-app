@@ -76,4 +76,9 @@ export class AppComponent {
     return todo.id !== todoId ? todo : {...todo, completed:!todo.completed}
     })
   }
+
+  deleteTodo(todoId: number) {
+    this.todos = this.todos.filter(todo => todo.id !== todoId);
+
+  }
 }
