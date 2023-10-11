@@ -1,10 +1,11 @@
-import { Component, EventEmitter, SimpleChanges, OnChanges, Input, Output, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, SimpleChanges, OnChanges, Input, Output, ElementRef, ViewChild } from '@angular/core';
 import { Todo } from 'src/app/types/todo';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  styleUrls: ['./todo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoComponent implements OnChanges {
   @Output() delete = new EventEmitter();

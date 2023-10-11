@@ -14,9 +14,9 @@ const todos = [
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   todos = todos;
 
   todoForm = new FormGroup({
@@ -38,11 +38,7 @@ export class AppComponent implements OnInit {
     console.log('calculating todo');
     return this.todos.filter(todo => !todo.completed);
   }
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.todos[1] = {...this.todos[1], title:'qwerty'}
-    }, 3000);
-  }
+
 
   trackById(i: number, todo: Todo) {
     return todo.id;
