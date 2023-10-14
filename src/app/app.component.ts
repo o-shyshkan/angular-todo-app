@@ -19,21 +19,6 @@ const todos = [
 export class AppComponent {
   todos = todos;
 
-  todoForm = new FormGroup({
-
-    title: new FormControl('', {
-    nonNullable:true,
-    validators:[
-    Validators.required,
-    Validators.minLength(3),
-    ]})
-
-  });
-
-  get title() {
-    return this.todoForm.get('title') as FormControl;
-  }
-
   get activeTodos() {
     console.log('calculating todo');
     return this.todos.filter(todo => !todo.completed);
@@ -42,17 +27,6 @@ export class AppComponent {
 
   trackById(i: number, todo: Todo) {
     return todo.id;
-  }
-
-
-  handleFormSubmit() {
-    if (this.todoForm.invalid) {
-      return;
-    }
-
-    this.addTodo(this.title.value)
-
-    this.todoForm.reset();
   }
 
   addTodo(newTitle: string) {

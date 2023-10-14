@@ -1,6 +1,6 @@
 <div class="todoapp">
   <h1 class="todoapp__title">todos</h1>
-  {{title.errors | json}}
+
   <div class="todoapp__content">
     <header class="todoapp__header">
       <button
@@ -8,17 +8,7 @@
         class="todoapp__toggle-all active"
         data-cy="ToggleAllButton"></button>
 
-      <form (ngSubmit)="handleFormSubmit()">
-        <input
-          data-cy="NewTodoField"
-          type="text"
-          class="todoapp__new-todo"
-          [style.backgroundColor]="title.errors && title.touched? '#F88': '' "
-          placeholder="What needs to be done?"
-          name="title"
-          [formControl]="title"
-        />
-      </form>
+      <app-todo-form (save)="addTodo($event)"></app-todo-form>
     </header>
 
     <section class="todoapp__main" data-cy="TodoList">
