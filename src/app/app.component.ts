@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Todo } from 'src/app/types/todo';
 
-const todos = [
+const todosFromServer = [
   { id: 1, title: 'HTML + CSS', completed: true },
   { id: 2, title: 'JS', completed: true },
   { id: 3, title: 'React', completed: false },
@@ -16,14 +16,25 @@ const todos = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  todos = todos;
+export class AppComponent implements OnInit {
+  _todos: Todo[] = [];
+  activeTodos: Todo[] = [];
 
-  get activeTodos() {
-    console.log('calculating todo');
-    return this.todos.filter(todo => !todo.completed);
+  get todos() {
+    return this._todos;
   }
 
+  set todos(todos: Todo[]) {
+    if (todos == this._todos) {
+      return;
+    }
+    this._todos = todos;
+    this.activeTodos = this.todos.filter(todo => !todo.completed);
+  }
+
+  ngOnInit(): void {
+    this.todos = todosFromServer;
+  }
 
   trackById(i: number, todo: Todo) {
     return todo.id;
