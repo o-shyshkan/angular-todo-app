@@ -1,15 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TodosService } from './services/todos.service';
 import { Todo } from 'src/app/types/todo';
-
-const todosFromServer = [
-  { id: 1, title: 'HTML + CSS', completed: true },
-  { id: 2, title: 'JS', completed: true },
-  { id: 3, title: 'React', completed: false },
-  { id: 4, title: 'Vue.js', completed: false },
-];
-
 
 @Component({
   selector: 'app-root',
@@ -17,7 +10,7 @@ const todosFromServer = [
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  _todos: Todo[] = [];
+  private _todos: Todo[] = [];
   activeTodos: Todo[] = [];
 
   get todos() {
@@ -32,8 +25,15 @@ export class AppComponent implements OnInit {
     this.activeTodos = this.todos.filter(todo => !todo.completed);
   }
 
+  constructor(
+    private todosService: TodosService,
+  ) {}
+
   ngOnInit(): void {
-    this.todos = todosFromServer;
+    this.todosService.getTodos()
+      .subscribe((todos) => {
+        this.todos = todos;
+      })
   }
 
   trackById(i: number, todo: Todo) {
