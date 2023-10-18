@@ -43,7 +43,10 @@ export class AppComponent implements OnInit {
   addTodo(newTitle: string) {
     this.todosService.createTodo(newTitle)
     .subscribe((newTodo) => {
-      this.todos = [...this.todos, newTodo];
+      this.todosService.getTodos()
+            .subscribe((todos) => {
+              this.todos = todos;
+            })
     });
 
 
