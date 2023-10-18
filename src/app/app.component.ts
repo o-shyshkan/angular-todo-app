@@ -41,13 +41,12 @@ export class AppComponent implements OnInit {
   }
 
   addTodo(newTitle: string) {
-    const newTodo: Todo = {
-      id: Date.now(),
-      title: newTitle,
-      completed: false
-    };
+    this.todosService.createTodo(newTitle)
+    .subscribe((newTodo) => {
+      this.todos = [...this.todos, newTodo];
+    });
 
-    this.todos = [...this.todos, newTodo];
+
   }
 
   renameTodo(todoId: number, title: string) {
